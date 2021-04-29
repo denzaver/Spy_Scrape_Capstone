@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Spy_Scrape.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Spy_Scrape.Data
             : base(options)
         {
         }
+
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

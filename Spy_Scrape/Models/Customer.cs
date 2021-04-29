@@ -19,6 +19,10 @@ namespace Spy_Scrape.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
+        public string CompanyName { get; set; }
+
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
