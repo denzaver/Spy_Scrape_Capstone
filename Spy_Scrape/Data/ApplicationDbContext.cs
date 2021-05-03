@@ -17,6 +17,7 @@ namespace Spy_Scrape.Data
 
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Ad> Ads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

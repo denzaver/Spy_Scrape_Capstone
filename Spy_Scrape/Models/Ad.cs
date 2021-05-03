@@ -14,5 +14,7 @@ namespace Spy_Scrape.Models
         public string AdType { get; set; }
         public string AdOs { get; set; }
         public string AdTargetMarket { get; set; }
+        public string AdMarketCountry { get; set; }
+
     }
 }
