@@ -10,6 +10,9 @@ namespace Spy_Scrape.Models
     {
         [Key]
         public int TrafficSourceId { get; set; }
+
+        [Display(Name = "Traffic Source")]
         public string TrafficSourceName { get; set; }
+
     }
 }
