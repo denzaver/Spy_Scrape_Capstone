@@ -48,15 +48,15 @@ namespace Spy_Scrape.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "86815b3d-c69d-4bea-99c1-253f6d0fe403",
-                            ConcurrencyStamp = "7b42648d-1269-4d72-8bb7-d55b66a0e457",
+                            Id = "3f67edcc-bec3-4456-8552-af5da69984ae",
+                            ConcurrencyStamp = "0d24ffc2-376d-454c-bc4b-8382e0e41aff",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f8f1a69a-6c76-42c2-96e0-02309c74caed",
-                            ConcurrencyStamp = "8575cde8-49d2-4985-b603-6504bc7430b2",
+                            Id = "f47c79be-8cce-4a65-b45c-87d2eb3b1102",
+                            ConcurrencyStamp = "9a2dbf3b-4002-4df1-8dd7-c99c5cb50246",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         });
@@ -253,6 +253,9 @@ namespace Spy_Scrape.Migrations
                     b.Property<string>("AdType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FavoriteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TrafficSourceId")
                         .HasColumnType("int");
 
@@ -260,6 +263,8 @@ namespace Spy_Scrape.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FavoriteId");
 
                     b.HasIndex("TrafficeSourceTrafficSourceId");
 
@@ -319,6 +324,23 @@ namespace Spy_Scrape.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("Spy_Scrape.Models.TrafficeSource", b =>
@@ -389,6 +411,10 @@ namespace Spy_Scrape.Migrations
 
             modelBuilder.Entity("Spy_Scrape.Models.Ad", b =>
                 {
+                    b.HasOne("Spy_Scrape.Models.Favorite", null)
+                        .WithMany("Ads")
+                        .HasForeignKey("FavoriteId");
+
                     b.HasOne("Spy_Scrape.Models.TrafficeSource", "TrafficeSource")
                         .WithMany()
                         .HasForeignKey("TrafficeSourceTrafficSourceId");
@@ -412,6 +438,22 @@ namespace Spy_Scrape.Migrations
                         .HasForeignKey("IdentityUserId");
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
+                {
+                    b.HasOne("Spy_Scrape.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
+                {
+                    b.Navigation("Ads");
                 });
 #pragma warning restore 612, 618
         }
