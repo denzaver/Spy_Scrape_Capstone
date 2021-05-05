@@ -29,7 +29,7 @@ namespace Spy_Scrape.Controllers
             {
                 return View("Create");
             }
-            return View("");
+            return View("Favorites");
         }
 
         // GET: Customers/Details/5
