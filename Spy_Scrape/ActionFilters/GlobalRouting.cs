@@ -25,6 +25,11 @@ namespace Spy_Scrape.ActionFilters
                     context.Result = new RedirectToActionResult("Index",
                     "Customers", null);
                 }
+                else if (_claimsPrincipal.IsInRole("Admin"))
+                {
+                    context.Result = new RedirectToActionResult("Index",
+                    "Admins", null);
+                }
             }
         }
         public void OnActionExecuted(ActionExecutedContext context)
