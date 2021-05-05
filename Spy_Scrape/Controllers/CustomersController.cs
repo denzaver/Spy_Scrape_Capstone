@@ -24,12 +24,13 @@ namespace Spy_Scrape.Controllers
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             if (customer == null)
             {
                 return RedirectToAction(nameof(Create));
             }
-            return View(customer);
+            var customers = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
+            return View(customers);
         }
 
         // GET: Customers/Details/5

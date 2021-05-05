@@ -24,7 +24,7 @@ namespace Spy_Scrape.Controllers
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var admin = _context.Admins.Where(c => c.IdentityUserId == userId).ToList();
+            var admin = _context.Admins.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             if (admin == null)
             {
                 return RedirectToAction(nameof(Create));
