@@ -264,12 +264,12 @@ namespace Spy_Scrape.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "3f67edcc-bec3-4456-8552-af5da69984ae", "0d24ffc2-376d-454c-bc4b-8382e0e41aff", "Admin", "ADMIN" });
+                values: new object[] { "dd96e41c-15d7-44ff-9c6c-0bbd46439180", "b8db73ef-b29a-4384-b7fd-d014a3dba30a", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f47c79be-8cce-4a65-b45c-87d2eb3b1102", "9a2dbf3b-4002-4df1-8dd7-c99c5cb50246", "Customer", "Customer" });
+                values: new object[] { "66b7eee2-a54c-40f8-880d-151367eb0a33", "1f2111ed-1f6e-4222-8b8c-03f9e1a72a29", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_IdentityUserId",

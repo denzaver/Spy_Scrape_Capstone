@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +11,6 @@ using Spy_Scrape.Models;
 
 namespace Spy_Scrape.Controllers
 {
-    [Authorize(Roles = "Customer")]
-
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,15 +21,15 @@ namespace Spy_Scrape.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
-            if (customer == null)
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
+            if (customer.Count == 0)
             {
-                return View("Create");
+                return RedirectToAction(nameof(Create));
             }
-            return View("Favorites");
+            return View(customer);
         }
 
         // GET: Customers/Details/5
@@ -70,7 +67,9 @@ namespace Spy_Scrape.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Customers.Add(customer);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

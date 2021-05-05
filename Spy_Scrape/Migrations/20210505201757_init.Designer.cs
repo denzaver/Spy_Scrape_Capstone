@@ -10,7 +10,7 @@ using Spy_Scrape.Data;
 namespace Spy_Scrape.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210504235524_init")]
+    [Migration("20210505201757_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,17 +50,17 @@ namespace Spy_Scrape.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f67edcc-bec3-4456-8552-af5da69984ae",
-                            ConcurrencyStamp = "0d24ffc2-376d-454c-bc4b-8382e0e41aff",
+                            Id = "dd96e41c-15d7-44ff-9c6c-0bbd46439180",
+                            ConcurrencyStamp = "b8db73ef-b29a-4384-b7fd-d014a3dba30a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f47c79be-8cce-4a65-b45c-87d2eb3b1102",
-                            ConcurrencyStamp = "9a2dbf3b-4002-4df1-8dd7-c99c5cb50246",
+                            Id = "66b7eee2-a54c-40f8-880d-151367eb0a33",
+                            ConcurrencyStamp = "1f2111ed-1f6e-4222-8b8c-03f9e1a72a29",
                             Name = "Customer",
-                            NormalizedName = "Customer"
+                            NormalizedName = "CUSTOMER"
                         });
                 });
 
