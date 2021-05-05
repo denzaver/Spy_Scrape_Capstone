@@ -35,7 +35,7 @@ namespace Spy_Scrape.Data
                     new IdentityRole
                     {
                         Name = "Customer",
-                        NormalizedName = "Customer"
+                        NormalizedName = "CUSTOMER"
                     }
 
                  );
