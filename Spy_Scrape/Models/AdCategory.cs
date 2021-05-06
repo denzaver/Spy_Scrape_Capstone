@@ -13,5 +13,7 @@ namespace Spy_Scrape.Models
 
         [Display(Name = "Ad Type")]
         public string CategoryType { get; set; }
+
+        public List<Ad> Ads { get; set; }
     }
 }
