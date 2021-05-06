@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,29 +10,24 @@ using Spy_Scrape.Models;
 
 namespace Spy_Scrape.Controllers
 {
-    public class AdminsController : Controller
+    public class AdsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public AdminsController(ApplicationDbContext context)
+        public AdsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admins
+        // GET: Ads
         public IActionResult Index()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var admin = _context.Admins.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-            if (admin == null)
-            {
-                return RedirectToAction(nameof(Create));
-            }
-            var admins = _context.Admins.Where(c => c.IdentityUserId == userId).ToList();
-            return View(admins);
+
+            var adsView = _context.Ads.ToList();
+            return View(adsView);
         }
 
-        // GET: Admins/Details/5
+        // GET: Ads/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,44 +35,42 @@ namespace Spy_Scrape.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins
-                .Include(a => a.Identity)
-                .FirstOrDefaultAsync(m => m.AdminId == id);
-            if (admin == null)
+            var ad = await _context.Ads
+                .Include(a => a.AdCategory)
+                .FirstOrDefaultAsync(m => m.AdId == id);
+            if (ad == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(ad);
         }
 
-        // GET: Admins/Create
+        // GET: Ads/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId");
             return View();
         }
 
-        // POST: Admins/Create
+        // POST: Ads/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,IdentityUserId")] Admin admin)
+        public async Task<IActionResult> Create([Bind("AdId,AdOs,AdTargetMarket,AdMarketCountry,ImageURL,CategoryId,TrafficSourceId")] Ad ad)
         {
             if (ModelState.IsValid)
             {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                admin.IdentityUserId = userId;
-                _context.Add(admin);
+                _context.Add(ad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", admin.IdentityUserId);
-            return View(admin);
+            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+            return View(ad);
         }
 
-        // GET: Admins/Edit/5
+        // GET: Ads/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,23 +78,23 @@ namespace Spy_Scrape.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins.FindAsync(id);
-            if (admin == null)
+            var ad = await _context.Ads.FindAsync(id);
+            if (ad == null)
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", admin.IdentityUserId);
-            return View(admin);
+            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+            return View(ad);
         }
 
-        // POST: Admins/Edit/5
+        // POST: Ads/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,IdentityUserId")] Admin admin)
+        public async Task<IActionResult> Edit(int id, [Bind("AdId,AdOs,AdTargetMarket,AdMarketCountry,ImageURL,CategoryId,TrafficSourceId")] Ad ad)
         {
-            if (id != admin.AdminId)
+            if (id != ad.AdId)
             {
                 return NotFound();
             }
@@ -111,12 +103,12 @@ namespace Spy_Scrape.Controllers
             {
                 try
                 {
-                    _context.Update(admin);
+                    _context.Update(ad);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminExists(admin.AdminId))
+                    if (!AdExists(ad.AdId))
                     {
                         return NotFound();
                     }
@@ -127,11 +119,11 @@ namespace Spy_Scrape.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", admin.IdentityUserId);
-            return View(admin);
+            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+            return View(ad);
         }
 
-        // GET: Admins/Delete/5
+        // GET: Ads/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,31 +131,31 @@ namespace Spy_Scrape.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins
-                .Include(a => a.Identity)
-                .FirstOrDefaultAsync(m => m.AdminId == id);
-            if (admin == null)
+            var ad = await _context.Ads
+                .Include(a => a.AdCategory)
+                .FirstOrDefaultAsync(m => m.AdId == id);
+            if (ad == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(ad);
         }
 
-        // POST: Admins/Delete/5
+        // POST: Ads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var admin = await _context.Admins.FindAsync(id);
-            _context.Admins.Remove(admin);
+            var ad = await _context.Ads.FindAsync(id);
+            _context.Ads.Remove(ad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdminExists(int id)
+        private bool AdExists(int id)
         {
-            return _context.Admins.Any(e => e.AdminId == id);
+            return _context.Ads.Any(e => e.AdId == id);
         }
     }
 }
