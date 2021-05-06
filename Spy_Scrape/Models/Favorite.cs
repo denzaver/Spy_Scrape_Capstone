@@ -10,7 +10,7 @@ namespace Spy_Scrape.Models
     public class Favorite
     {
         [Key]
-        public int Id { get; set; }
+        public int FavoriteId { get; set; }
         public List<Ad> Ads { get; set; }
 
         [ForeignKey("Customer")]

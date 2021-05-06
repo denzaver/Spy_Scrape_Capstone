@@ -11,7 +11,7 @@ namespace Spy_Scrape.Models
     public class Admin
     {
         [Key]
-        public int Id { get; set; }
+        public int AdminId { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
