@@ -50,7 +50,8 @@ namespace Spy_Scrape.Controllers
         // GET: Ads/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId");
+            var ads = _context.AdCategories.ToList();
+            ViewData["CategoryId"] = new SelectList(ads, "CategoryId", "CategoryType");
             return View();
         }
 
@@ -63,12 +64,12 @@ namespace Spy_Scrape.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
+                //ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
                 _context.Add(ad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
             return View(ad);
         }
 
