@@ -22,8 +22,9 @@ namespace Spy_Scrape.Controllers
         // GET: Ads
         public IActionResult Index()
         {
-
+            
             var adsView = _context.Ads.ToList();
+            
             return View(adsView);
         }
 
@@ -62,6 +63,7 @@ namespace Spy_Scrape.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
                 _context.Add(ad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
