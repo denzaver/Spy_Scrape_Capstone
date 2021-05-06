@@ -29,7 +29,7 @@ namespace Spy_Scrape.Controllers
             {
                 return RedirectToAction(nameof(Create));
             }
-            var customers = _context.Admins.Where(c => c.IdentityUserId == userId).ToList();
+            var admins = _context.Admins.Where(c => c.IdentityUserId == userId).ToList();
             return View(admin);
         }
 

@@ -11,8 +11,8 @@ namespace Spy_Scrape.Models
     {
         [Key]
         public int Id { get; set; }
-        public string AdSource { get; set; }
-        public string AdType { get; set; }
+        public string AdSource { get; set; } // TrafficSource
+        public string AdType { get; set; } // Category
         public string AdOs { get; set; }
         public string AdTargetMarket { get; set; }
         public string AdMarketCountry { get; set; }
