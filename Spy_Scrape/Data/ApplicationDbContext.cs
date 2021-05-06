@@ -20,6 +20,8 @@ namespace Spy_Scrape.Data
         public DbSet<Ad> Ads { get; set; }
         public DbSet<TrafficeSource> TrafficeSources { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<AdCategory> AdCategories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

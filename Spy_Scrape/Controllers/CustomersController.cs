@@ -43,7 +43,7 @@ namespace Spy_Scrape.Controllers
 
             var customer = await _context.Customers
                 .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace Spy_Scrape.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,CompanyName,IdentityUserId")] Customer customer)
         {
-            if (id != customer.Id)
+            if (id != customer.CustomerId)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace Spy_Scrape.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!CustomerExists(customer.CustomerId))
                     {
                         return NotFound();
                     }
@@ -141,7 +141,7 @@ namespace Spy_Scrape.Controllers
 
             var customer = await _context.Customers
                 .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -163,7 +163,7 @@ namespace Spy_Scrape.Controllers
 
         private bool CustomerExists(int id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.CustomerId == id);
         }
     }
 }

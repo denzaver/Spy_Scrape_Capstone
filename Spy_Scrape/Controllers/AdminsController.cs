@@ -43,7 +43,7 @@ namespace Spy_Scrape.Controllers
 
             var admin = await _context.Admins
                 .Include(a => a.Identity)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.AdminId == id);
             if (admin == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace Spy_Scrape.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,IdentityUserId")] Admin admin)
         {
-            if (id != admin.Id)
+            if (id != admin.AdminId)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace Spy_Scrape.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminExists(admin.Id))
+                    if (!AdminExists(admin.AdminId))
                     {
                         return NotFound();
                     }
@@ -141,7 +141,7 @@ namespace Spy_Scrape.Controllers
 
             var admin = await _context.Admins
                 .Include(a => a.Identity)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.AdminId == id);
             if (admin == null)
             {
                 return NotFound();
@@ -163,7 +163,7 @@ namespace Spy_Scrape.Controllers
 
         private bool AdminExists(int id)
         {
-            return _context.Admins.Any(e => e.Id == id);
+            return _context.Admins.Any(e => e.AdminId == id);
         }
     }
 }

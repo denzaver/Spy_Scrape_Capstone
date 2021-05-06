@@ -36,7 +36,7 @@ namespace Spy_Scrape.Controllers
 
             var favorite = await _context.Favorites
                 .Include(f => f.Customer)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.FavoriteId == id);
             if (favorite == null)
             {
                 return NotFound();
@@ -93,7 +93,7 @@ namespace Spy_Scrape.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId")] Favorite favorite)
         {
-            if (id != favorite.Id)
+            if (id != favorite.FavoriteId)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace Spy_Scrape.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FavoriteExists(favorite.Id))
+                    if (!FavoriteExists(favorite.FavoriteId))
                     {
                         return NotFound();
                     }
@@ -132,7 +132,7 @@ namespace Spy_Scrape.Controllers
 
             var favorite = await _context.Favorites
                 .Include(f => f.Customer)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.FavoriteId == id);
             if (favorite == null)
             {
                 return NotFound();
@@ -154,7 +154,7 @@ namespace Spy_Scrape.Controllers
 
         private bool FavoriteExists(int id)
         {
-            return _context.Favorites.Any(e => e.Id == id);
+            return _context.Favorites.Any(e => e.FavoriteId == id);
         }
     }
 }
