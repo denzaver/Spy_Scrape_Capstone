@@ -15,7 +15,7 @@ namespace Spy_Scrape.Models
         public string AdTargetMarket { get; set; }
         public string AdMarketCountry { get; set; }
         public string ImageURL { get; set; }
-     
+
         [ForeignKey("AdCategory")]
         public int CategoryId { get; set; }
         public AdCategory AdCategory { get; set; }
