@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Spy_Scrape.Models;
 
 namespace Spy_Scrape
 {
@@ -47,6 +48,8 @@ namespace Spy_Scrape
             });
 
             services.AddControllersWithViews();
+            services.AddScoped<IAdCategoryRepository, AdCategoryRepository>();
+            services.AddScoped<IAdRepository, AdRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
