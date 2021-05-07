@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Spy_Scrape.Data;
 using Spy_Scrape.Models;
+using Spy_Scrape.ViewModels;
 
 namespace Spy_Scrape.Controllers
 {
@@ -33,12 +34,31 @@ namespace Spy_Scrape.Controllers
             return View(_adRepository.GetAllAds);
         }
         [Authorize]
-        public IActionResult AdMarketplace()
+        public IActionResult AdMarketplace(string category)
         {
+            IEnumerable<Ad> ads;
+            string currentCategory;
 
+            if (string.IsNullOrEmpty(category))
+            {
+                ads = _adRepository.GetAllAds.OrderBy(a => a.AdId);
+                currentCategory = "All Ads";
+            }
+            else
+            {
+                ads = _adRepository.GetAllAds.Where(c => c.AdCategory.CategoryType == category);
+
+                currentCategory = _adCategoryRepository.GetAdCategories.FirstOrDefault(c => c.CategoryType == category)?.CategoryType;
+            }
+
+            return View(new AdMarketplaceViewModel
+            {
+                Ads = ads,
+                CurrentCategory = currentCategory
+            });
             //var adsCatalog = _context.Ads.ToList();
-            ViewBag.FacebookCategory = "Facebook Ads";
-            return View(_adRepository.GetAllAds);
+            //ViewBag.FacebookCategory = "Facebook Ads";
+            //return View(_adRepository.GetAllAds);
         }
 
         // GET: Ads/Details/5

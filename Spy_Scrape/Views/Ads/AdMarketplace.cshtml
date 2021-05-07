@@ -1,4 +1,4 @@
-﻿@model IEnumerable< Spy_Scrape.Models.Ad>
+﻿@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
 
 <html>
 <head>
@@ -8,8 +8,8 @@
     <title> Spy Scraper</title>
 </head>
 <body>
-    <h1>@ViewBag.FacebookCategory</h1>
-    @foreach (var ad in Model)
+    <h1>@Model.CurrentCategory</h1>
+    @foreach (var ad in Model.Ads)
             {
                 <div>
                     <h2>@ad.AdOs</h2>
