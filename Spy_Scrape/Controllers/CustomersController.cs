@@ -30,7 +30,7 @@ namespace Spy_Scrape.Controllers
                 return RedirectToAction(nameof(Create));
             }
 
-            return RedirectToAction("AdCatalogIndex", "Ads" );
+            return RedirectToAction("AdMarketplace", "Ads" );
         }
 
         // GET: Customers/Details/5
@@ -75,7 +75,7 @@ namespace Spy_Scrape.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return RedirectToAction("AdCatalogIndex", "Ads");
+            return RedirectToAction("AdMarketplace", "Ads");
         }
 
 
