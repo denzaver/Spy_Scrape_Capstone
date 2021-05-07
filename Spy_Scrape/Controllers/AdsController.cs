@@ -13,41 +13,44 @@ namespace Spy_Scrape.Controllers
 {
     public class AdsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        readonly ApplicationDbContext _context;
+        private readonly IAdRepository _adRepository;
+        private readonly IAdCategoryRepository _adCategoryRepository;
 
-        public AdsController(ApplicationDbContext context)
+        public AdsController(ApplicationDbContext context, IAdRepository adRepository, IAdCategoryRepository adCategoryRepository)
         {
-            _context = context;
+            //_context = context;
+            _adRepository = adRepository;
+            _adCategoryRepository = adCategoryRepository;
         }
 
         // GET: Ads
         public IActionResult Index()
         {
             
-            var adsView = _context.Ads.ToList();
+            //var adsView = _context.Ads.ToList();
             
-            return View(adsView);
+            return View(_adRepository.GetAllAds);
         }
         [Authorize]
-        public IActionResult AdCatalogIndex()
+        public IActionResult AdMarketplace()
         {
 
-            var adsCatalog = _context.Ads.ToList();
-
-            return View(adsCatalog);
+            //var adsCatalog = _context.Ads.ToList();
+            ViewBag.FacebookCategory = "Facebook Ads";
+            return View(_adRepository.GetAllAds);
         }
 
         // GET: Ads/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var ad = await _context.Ads
-                .Include(a => a.AdCategory)
-                .FirstOrDefaultAsync(m => m.AdId == id);
+            var ad = _adRepository.GetAdById(id);
+
             if (ad == null)
             {
                 return NotFound();
@@ -59,8 +62,7 @@ namespace Spy_Scrape.Controllers
         // GET: Ads/Create
         public IActionResult Create()
         {
-            var ads = _context.AdCategories.ToList();
-            ViewData["CategoryId"] = new SelectList(ads, "CategoryId", "CategoryType");
+           
             return View();
         }
 
@@ -69,18 +71,23 @@ namespace Spy_Scrape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdId,AdOs,AdTargetMarket,AdMarketCountry,ImageURL,CategoryId,TrafficSourceId")] Ad ad)
+        public IActionResult Create([Bind("AdId,AdOs,AdTargetMarket,AdMarketCountry,ImageURL,CategoryId,TrafficSourceId")] Ad ad)
         {
             if (ModelState.IsValid)
             {
                 //ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
-                
-                _context.Add(ad);
-                await _context.SaveChangesAsync();
+                var addAd = new Ad();
+                addAd.AdOs = ad.AdOs;
+                addAd.AdTargetMarket = ad.AdTargetMarket;
+                addAd.AdMarketCountry = ad.AdMarketCountry;
+                addAd.ImageURL = ad.ImageURL;
+                addAd.AdCategory = ad.AdCategory;
+                addAd.TrafficeSource = ad.TrafficeSource;
+                _adRepository.CreateAd(addAd);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
-            return View("Index", "Ads" );
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Ads/Edit/5

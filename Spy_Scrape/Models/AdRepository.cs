@@ -21,12 +21,17 @@ namespace Spy_Scrape.Models
                 return _context.Ads.Include(c => c.AdCategory);
             }
         }
-
+        
+        public void CreateAd(Ad ad)
+        {
+            _context.Ads.Add(ad);
+            _context.SaveChangesAsync();
+        }
         public IEnumerable<Ad> GetAllFacebookAds
         {
             get
             {
-                return _context.Ads.Include(c => c.AdCategory); //.Where(f => f.Facebook);
+                return _context.Ads.Include(c => c.AdCategory);//.Where(f => f.Facebook);
             }
         }
 

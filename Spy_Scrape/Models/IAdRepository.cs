@@ -8,6 +8,7 @@ namespace Spy_Scrape.Models
     public interface IAdRepository
     {
         IEnumerable<Ad> GetAllAds { get; }
+        void CreateAd(Ad ad);
         IEnumerable<Ad> GetAllFacebookAds { get; }
         IEnumerable<Ad> GetAllInstagramAds { get; }
         IEnumerable<Ad> GetAllTikTokAds { get; }

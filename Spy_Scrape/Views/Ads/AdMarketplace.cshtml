@@ -1,0 +1,22 @@
+﻿@model IEnumerable< Spy_Scrape.Models.Ad>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title> Spy Scraper</title>
+</head>
+<body>
+    <h1>@ViewBag.FacebookCategory</h1>
+    @foreach (var ad in Model)
+            {
+                <div>
+                    <h2>@ad.AdOs</h2>
+                    <h3>@ad.AdTargetMarket</h3>
+                    <h4>@ad.AdCategory.CategoryId</h4>
+                </div>
+            }
+
+</body>
+</html>
