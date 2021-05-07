@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Spy_Scrape.Models.Ad>
+
+@{
+    ViewData["Title"] = "AdCatalogIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AdCatalogIndex</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdOs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdTargetMarket)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdMarketCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrafficSourceId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdOs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdTargetMarket)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdMarketCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdCategory.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrafficSourceId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AdId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AdId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AdId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

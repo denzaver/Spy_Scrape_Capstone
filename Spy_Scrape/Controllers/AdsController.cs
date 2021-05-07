@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,14 @@ namespace Spy_Scrape.Controllers
             var adsView = _context.Ads.ToList();
             
             return View(adsView);
+        }
+        [Authorize]
+        public IActionResult AdCatalogIndex()
+        {
+
+            var adsCatalog = _context.Ads.ToList();
+
+            return View(adsCatalog);
         }
 
         // GET: Ads/Details/5
@@ -65,12 +74,13 @@ namespace Spy_Scrape.Controllers
             if (ModelState.IsValid)
             {
                 //ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
+                
                 _context.Add(ad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
-            return View(ad);
+            return View("Index", "Ads" );
         }
 
         // GET: Ads/Edit/5
