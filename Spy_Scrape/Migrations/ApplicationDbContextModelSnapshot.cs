@@ -48,15 +48,15 @@ namespace Spy_Scrape.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "182fd430-5184-48be-bb94-34af8e6f4c3d",
-                            ConcurrencyStamp = "62c73e40-904a-455b-ad14-94fae055c34e",
+                            Id = "b1c22924-d540-4af1-a360-fd04b66464ae",
+                            ConcurrencyStamp = "1bbac39a-7cd0-4498-b823-4e23d211a4a8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2c0293bd-ce84-4e87-b7d2-667e94a1eca5",
-                            ConcurrencyStamp = "3a077961-b06b-42ca-9c2d-43d0b3473946",
+                            Id = "854c143f-3841-4ce4-a42a-7aae6efff5e6",
+                            ConcurrencyStamp = "d360b84d-7704-4997-85b4-ce0908ca32e8",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -238,37 +238,39 @@ namespace Spy_Scrape.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdMarketCountry")
+                    b.Property<bool>("AdIsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AdOS")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AdOs")
+                    b.Property<string>("AdRunTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdTargetCountry")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AdTargetMarket")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("AdTrafficSource")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FavoriteId")
+                    b.Property<string>("AdType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdVies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrafficSourceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TrafficeSourceTrafficSourceId")
-                        .HasColumnType("int");
-
                     b.HasKey("AdId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("FavoriteId");
-
-                    b.HasIndex("TrafficeSourceTrafficSourceId");
 
                     b.ToTable("Ads");
                 });
@@ -343,38 +345,6 @@ namespace Spy_Scrape.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
-                {
-                    b.Property<int>("FavoriteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Favorites");
-                });
-
-            modelBuilder.Entity("Spy_Scrape.Models.TrafficeSource", b =>
-                {
-                    b.Property<int>("TrafficSourceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TrafficSourceName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TrafficSourceId");
-
-                    b.ToTable("TrafficeSources");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -434,17 +404,7 @@ namespace Spy_Scrape.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Spy_Scrape.Models.Favorite", null)
-                        .WithMany("Ads")
-                        .HasForeignKey("FavoriteId");
-
-                    b.HasOne("Spy_Scrape.Models.TrafficeSource", "TrafficeSource")
-                        .WithMany()
-                        .HasForeignKey("TrafficeSourceTrafficSourceId");
-
                     b.Navigation("AdCategory");
-
-                    b.Navigation("TrafficeSource");
                 });
 
             modelBuilder.Entity("Spy_Scrape.Models.Admin", b =>
@@ -465,23 +425,7 @@ namespace Spy_Scrape.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
-                {
-                    b.HasOne("Spy_Scrape.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("Spy_Scrape.Models.AdCategory", b =>
-                {
-                    b.Navigation("Ads");
-                });
-
-            modelBuilder.Entity("Spy_Scrape.Models.Favorite", b =>
                 {
                     b.Navigation("Ads");
                 });

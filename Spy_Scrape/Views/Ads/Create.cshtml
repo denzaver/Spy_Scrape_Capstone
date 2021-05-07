@@ -14,9 +14,19 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AdOs" class="control-label"></label>
-                <input asp-for="AdOs" class="form-control" />
-                <span asp-validation-for="AdOs" class="text-danger"></span>
+                <label asp-for="AdType" class="control-label"></label>
+                <input asp-for="AdType" class="form-control" />
+                <span asp-validation-for="AdType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdTrafficSource" class="control-label"></label>
+                <input asp-for="AdTrafficSource" class="form-control" />
+                <span asp-validation-for="AdTrafficSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdOS" class="control-label"></label>
+                <input asp-for="AdOS" class="form-control" />
+                <span asp-validation-for="AdOS" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AdTargetMarket" class="control-label"></label>
@@ -24,25 +34,34 @@
                 <span asp-validation-for="AdTargetMarket" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AdMarketCountry" class="control-label"></label>
-                <input asp-for="AdMarketCountry" class="form-control" />
-                <span asp-validation-for="AdMarketCountry" class="text-danger"></span>
+                <label asp-for="AdTargetCountry" class="control-label"></label>
+                <input asp-for="AdTargetCountry" class="form-control" />
+                <span asp-validation-for="AdTargetCountry" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageURL" class="control-label"></label>
                 <input asp-for="ImageURL" class="form-control" />
                 <span asp-validation-for="ImageURL" class="text-danger"></span>
-            @*</div>
-                <div class="form-group">
+            </div>
+            <div class="form-group">
+                <label asp-for="AdVies" class="control-label"></label>
+                <input asp-for="AdVies" class="form-control" />
+                <span asp-validation-for="AdVies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdRunTime" class="control-label"></label>
+                <input asp-for="AdRunTime" class="form-control" />
+                <span asp-validation-for="AdRunTime" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="AdIsActive" /> @Html.DisplayNameFor(model => model.AdIsActive)
+                </label>
+            </div>
+            <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-             </div>*@
-            @*<div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>*@
-            @*</div>*@
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

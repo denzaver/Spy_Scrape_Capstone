@@ -60,16 +60,31 @@ namespace Spy_Scrape.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TrafficeSources",
+                name: "Ads",
                 columns: table => new
                 {
-                    TrafficSourceId = table.Column<int>(type: "int", nullable: false)
+                    AdId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TrafficSourceName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AdType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdTrafficSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdOS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdTargetMarket = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdTargetCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdVies = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdRunTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdIsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TrafficeSources", x => x.TrafficSourceId);
+                    table.PrimaryKey("PK_Ads", x => x.AdId);
+                    table.ForeignKey(
+                        name: "FK_Ads_AdCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "AdCategories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,72 +238,15 @@ namespace Spy_Scrape.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Favorites",
-                columns: table => new
-                {
-                    FavoriteId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Favorites", x => x.FavoriteId);
-                    table.ForeignKey(
-                        name: "FK_Favorites_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ads",
-                columns: table => new
-                {
-                    AdId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AdOs = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AdTargetMarket = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AdMarketCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    TrafficSourceId = table.Column<int>(type: "int", nullable: false),
-                    TrafficeSourceTrafficSourceId = table.Column<int>(type: "int", nullable: true),
-                    FavoriteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ads", x => x.AdId);
-                    table.ForeignKey(
-                        name: "FK_Ads_AdCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "AdCategories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ads_Favorites_FavoriteId",
-                        column: x => x.FavoriteId,
-                        principalTable: "Favorites",
-                        principalColumn: "FavoriteId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ads_TrafficeSources_TrafficeSourceTrafficSourceId",
-                        column: x => x.TrafficeSourceTrafficSourceId,
-                        principalTable: "TrafficeSources",
-                        principalColumn: "TrafficSourceId",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b1c22924-d540-4af1-a360-fd04b66464ae", "1bbac39a-7cd0-4498-b823-4e23d211a4a8", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "182fd430-5184-48be-bb94-34af8e6f4c3d", "62c73e40-904a-455b-ad14-94fae055c34e", "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2c0293bd-ce84-4e87-b7d2-667e94a1eca5", "3a077961-b06b-42ca-9c2d-43d0b3473946", "Customer", "CUSTOMER" });
+                values: new object[] { "854c143f-3841-4ce4-a42a-7aae6efff5e6", "d360b84d-7704-4997-85b4-ce0908ca32e8", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_IdentityUserId",
@@ -299,16 +257,6 @@ namespace Spy_Scrape.Migrations
                 name: "IX_Ads_CategoryId",
                 table: "Ads",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ads_FavoriteId",
-                table: "Ads",
-                column: "FavoriteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ads_TrafficeSourceTrafficSourceId",
-                table: "Ads",
-                column: "TrafficeSourceTrafficSourceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -353,11 +301,6 @@ namespace Spy_Scrape.Migrations
                 name: "IX_Customers_IdentityUserId",
                 table: "Customers",
                 column: "IdentityUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Favorites_CustomerId",
-                table: "Favorites",
-                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -384,19 +327,13 @@ namespace Spy_Scrape.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
                 name: "AdCategories");
 
             migrationBuilder.DropTable(
-                name: "Favorites");
-
-            migrationBuilder.DropTable(
-                name: "TrafficeSources");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

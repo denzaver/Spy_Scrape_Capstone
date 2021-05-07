@@ -14,22 +14,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AdOs)
+                @Html.DisplayNameFor(model => model.AdType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdTrafficSource)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdOS)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AdTargetMarket)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AdMarketCountry)
+                @Html.DisplayNameFor(model => model.AdTargetCountry)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImageURL)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AdCategory)
+                @Html.DisplayNameFor(model => model.AdVies)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrafficSourceId)
+                @Html.DisplayNameFor(model => model.AdRunTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdIsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdCategory)
             </th>
             <th></th>
         </tr>
@@ -38,22 +50,34 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AdOs)
+                @Html.DisplayFor(modelItem => item.AdType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdTrafficSource)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdOS)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AdTargetMarket)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AdMarketCountry)
+                @Html.DisplayFor(modelItem => item.AdTargetCountry)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageURL)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AdCategory.CategoryId)
+                @Html.DisplayFor(modelItem => item.AdVies)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrafficSourceId)
+                @Html.DisplayFor(modelItem => item.AdRunTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdIsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdCategory.CategoryId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AdId">Edit</a> |

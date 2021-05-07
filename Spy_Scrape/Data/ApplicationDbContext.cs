@@ -18,8 +18,6 @@ namespace Spy_Scrape.Data
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Ad> Ads { get; set; }
-        public DbSet<TrafficeSource> TrafficeSources { get; set; }
-        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<AdCategory> AdCategories { get; set; }
 
 

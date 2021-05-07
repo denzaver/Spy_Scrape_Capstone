@@ -91,12 +91,11 @@ namespace Spy_Scrape.Controllers
             {
                 //ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
                 var addAd = new Ad();
-                addAd.AdOs = ad.AdOs;
+                addAd.AdOS = ad.AdOS;
                 addAd.AdTargetMarket = ad.AdTargetMarket;
-                addAd.AdMarketCountry = ad.AdMarketCountry;
+                addAd.AdTargetCountry = ad.AdTargetCountry;
                 addAd.ImageURL = ad.ImageURL;
                 addAd.AdCategory = ad.AdCategory;
-                addAd.TrafficeSource = ad.TrafficeSource;
                 _adRepository.CreateAd(addAd);
                 return RedirectToAction(nameof(Index));
             }

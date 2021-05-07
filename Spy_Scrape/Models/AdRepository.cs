@@ -31,7 +31,7 @@ namespace Spy_Scrape.Models
         {
             get
             {
-                return _context.Ads.Include(c => c.AdCategory);//.Where(f => f.Facebook);
+                return _context.Ads.Include(c => c.AdCategory).Where(c => c.AdTrafficSource == "Facebook");
             }
         }
 
@@ -39,14 +39,14 @@ namespace Spy_Scrape.Models
         {
             get
             {
-                return _context.Ads.Include(c => c.AdCategory); //.Where(i => i.Instagram);
+                return _context.Ads.Include(c => c.AdCategory).Where(c => c.AdTrafficSource == "Instagram");
             }
         }
         public IEnumerable<Ad> GetAllTikTokAds
         {
             get
             {
-                return _context.Ads.Include(c => c.AdCategory); //.Where(t => t.TikTok);
+                return _context.Ads.Include(c => c.AdCategory).Where(c => c.AdTrafficSource == "Instagram");
             }
         }
 

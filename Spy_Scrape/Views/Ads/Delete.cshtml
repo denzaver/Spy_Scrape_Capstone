@@ -13,10 +13,22 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AdOs)
+            @Html.DisplayNameFor(model => model.AdType)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AdOs)
+            @Html.DisplayFor(model => model.AdType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdTrafficSource)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdTrafficSource)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdOS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdOS)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AdTargetMarket)
@@ -25,10 +37,10 @@
             @Html.DisplayFor(model => model.AdTargetMarket)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AdMarketCountry)
+            @Html.DisplayNameFor(model => model.AdTargetCountry)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AdMarketCountry)
+            @Html.DisplayFor(model => model.AdTargetCountry)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ImageURL)
@@ -37,17 +49,29 @@
             @Html.DisplayFor(model => model.ImageURL)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdVies)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdVies)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdRunTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdRunTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdIsActive)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdIsActive)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AdCategory)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AdCategory.CategoryId)
         </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrafficSourceId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrafficSourceId)
-        </dd>
     </dl>
     
     <form asp-action="Delete">
