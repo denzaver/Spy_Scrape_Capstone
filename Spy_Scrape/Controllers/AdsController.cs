@@ -64,18 +64,12 @@ namespace Spy_Scrape.Controllers
         // GET: Ads/Details/5
         public IActionResult Details(int id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
             var ad = _adRepository.GetAdById(id);
 
             if (ad == null)
             {
                 return NotFound();
             }
-
             return View(ad);
         }
 
@@ -106,7 +100,7 @@ namespace Spy_Scrape.Controllers
                 _adRepository.CreateAd(addAd);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
+            //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
             return RedirectToAction(nameof(Index));
         }
 

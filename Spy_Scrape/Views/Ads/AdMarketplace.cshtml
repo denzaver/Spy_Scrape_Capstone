@@ -1,22 +1,19 @@
 ﻿@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
 
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title> Spy Scraper</title>
-</head>
-<body>
+
     <h1>@Model.CurrentCategory</h1>
     @foreach (var ad in Model.Ads)
             {
-                <div>
-                    <h2>@ad.AdOs</h2>
-                    <h3>@ad.AdTargetMarket</h3>
-                    <h4>@ad.AdCategory.CategoryId</h4>
-                </div>
+               <div class="col-sm-4 col-lg-4 col md-4">
+                   <div>
+                       <img src="@ad.ImageURL" alt="@ad.AdTargetMarket" />
+                   </div>
+                   <div class="caption">
+                   <h2>@ad.AdOs</h2>
+                   <h3>@ad.AdTargetMarket</h3>
+                   <h4>@ad.AdCategory.CategoryId</h4>
+                    <p>MAYBE A DISCRIPTION??</p>
+                   </div>
+               </div>
             }
 
-</body>
-</html>
