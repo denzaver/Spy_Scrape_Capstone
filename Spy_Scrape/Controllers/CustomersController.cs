@@ -29,8 +29,8 @@ namespace Spy_Scrape.Controllers
             {
                 return RedirectToAction(nameof(Create));
             }
-            var customers = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
-            return View(customers);
+
+            return RedirectToAction("AdCatalogIndex", "Ads" );
         }
 
         // GET: Customers/Details/5
@@ -75,7 +75,7 @@ namespace Spy_Scrape.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            return RedirectToAction("AdCatalogIndex", "Ads");
         }
 
 
