@@ -8,12 +8,16 @@ namespace Spy_Scrape.Models
 {
     public class AdCategoryRepository : IAdCategoryRepository
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private  ApplicationDbContext _applicationDbContext;
 
         public AdCategoryRepository(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
-        public IEnumerable<AdCategory> GetAdCategories => _applicationDbContext.AdCategories;
+        public IEnumerable<AdCategory> GetAdCategories()
+        {
+            return _applicationDbContext.AdCategories.ToList();
+        }
+
     }
 }

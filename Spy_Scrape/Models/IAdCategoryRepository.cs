@@ -7,6 +7,6 @@ namespace Spy_Scrape.Models
 {
     public interface IAdCategoryRepository
     {
-        IEnumerable<AdCategory> GetAdCategories { get; }
+        IEnumerable<AdCategory> GetAdCategories();
     }
 }

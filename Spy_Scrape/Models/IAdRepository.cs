@@ -9,7 +9,7 @@ namespace Spy_Scrape.Models
     {
         IEnumerable<Ad> GetAllAds { get; }
         void CreateAd(Ad ad);
-        IEnumerable<Ad> GetAllFacebookAds { get; }
+        IEnumerable<Ad> GetAllFacebookAds { get;}
         IEnumerable<Ad> GetAllInstagramAds { get; }
         IEnumerable<Ad> GetAllTikTokAds { get; }
         Ad GetAdById(int AdId);

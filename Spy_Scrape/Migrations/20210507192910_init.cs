@@ -73,7 +73,6 @@ namespace Spy_Scrape.Migrations
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdVies = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdRunTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AdIsActive = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -241,12 +240,12 @@ namespace Spy_Scrape.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b1c22924-d540-4af1-a360-fd04b66464ae", "1bbac39a-7cd0-4498-b823-4e23d211a4a8", "Admin", "ADMIN" });
+                values: new object[] { "ef36e6c5-e247-4a2d-b153-d4628df3d3f8", "1634cae6-d83c-41ca-b96f-c66c04b7b79e", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "854c143f-3841-4ce4-a42a-7aae6efff5e6", "d360b84d-7704-4997-85b4-ce0908ca32e8", "Customer", "CUSTOMER" });
+                values: new object[] { "32736afd-6590-4932-9508-fe3bf502cf97", "4cfda4a3-3867-4be0-9e02-912359647003", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_IdentityUserId",

@@ -19,7 +19,6 @@ namespace Spy_Scrape.Models
         public string ImageURL { get; set; } //the actual ad image
         public string AdVies { get; set; } //how many times the add has been seen
         public string AdRunTime { get; set; } //how long the ad has been runniing
-        public bool AdIsActive { get; set; } //is the add currently running
 
         [ForeignKey("AdCategory")]
         public int CategoryId { get; set; }

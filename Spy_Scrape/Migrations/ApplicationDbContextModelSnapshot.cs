@@ -48,15 +48,15 @@ namespace Spy_Scrape.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b1c22924-d540-4af1-a360-fd04b66464ae",
-                            ConcurrencyStamp = "1bbac39a-7cd0-4498-b823-4e23d211a4a8",
+                            Id = "ef36e6c5-e247-4a2d-b153-d4628df3d3f8",
+                            ConcurrencyStamp = "1634cae6-d83c-41ca-b96f-c66c04b7b79e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "854c143f-3841-4ce4-a42a-7aae6efff5e6",
-                            ConcurrencyStamp = "d360b84d-7704-4997-85b4-ce0908ca32e8",
+                            Id = "32736afd-6590-4932-9508-fe3bf502cf97",
+                            ConcurrencyStamp = "4cfda4a3-3867-4be0-9e02-912359647003",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -237,9 +237,6 @@ namespace Spy_Scrape.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AdIsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("AdOS")
                         .HasColumnType("nvarchar(max)");

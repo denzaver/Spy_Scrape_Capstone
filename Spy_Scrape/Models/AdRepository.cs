@@ -9,7 +9,7 @@ namespace Spy_Scrape.Models
 {
     public class AdRepository : IAdRepository
     {
-        private readonly ApplicationDbContext _context;
+        private  ApplicationDbContext _context;
         public AdRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -24,8 +24,8 @@ namespace Spy_Scrape.Models
         
         public void CreateAd(Ad ad)
         {
-            _context.Ads.Add(ad);
-            _context.SaveChangesAsync();
+            _context.Add(ad);
+            _context.SaveChanges();
         }
         public IEnumerable<Ad> GetAllFacebookAds
         {
@@ -46,7 +46,7 @@ namespace Spy_Scrape.Models
         {
             get
             {
-                return _context.Ads.Include(c => c.AdCategory).Where(c => c.AdTrafficSource == "Instagram");
+                return _context.Ads.Include(c => c.AdCategory).Where(c => c.AdTrafficSource == "TikTok");
             }
         }
 
