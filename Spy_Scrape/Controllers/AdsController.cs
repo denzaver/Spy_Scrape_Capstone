@@ -159,9 +159,9 @@ namespace Spy_Scrape.Controllers
                 return NotFound();
             }
 
-            var ad =  _adRepository.GetAllAds.FirstOrDefault(a => a.AdId == id)
-                .Include(a => a.AdCategory)
-                .FirstOrDefaultAsync(m => m.AdId == id);
+            var ad = _adRepository.GetAllAds.FirstOrDefault(a => a.AdId == id);
+                //.Include(a => a.AdCategory)
+                //.FirstOrDefaultAsync(m => m.AdId == id);
             if (ad == null)
             {
                 return NotFound();
@@ -175,9 +175,7 @@ namespace Spy_Scrape.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var ad =  _adRepository.Ads.FindAsync(id);
-            _context.Ads.Remove(ad);
-            await _context.SaveChangesAsync();
+            _adRepository.DeleteAd(id);
             return RedirectToAction(nameof(Index));
         }
 
