@@ -108,19 +108,19 @@ namespace Spy_Scrape.Controllers
         }
 
         // GET: Ads/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
+        //public IActionResult Edit(int id)
         //{
         //    if (id == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    var ad = await _context.Ads.FindAsync(id);
+        //    var ad = _adRepository.GetAdById(id);
         //    if (ad == null)
         //    {
         //        return NotFound();
         //    }
-        //    ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+        //    //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
         //    return View(ad);
         //}
 
@@ -139,8 +139,7 @@ namespace Spy_Scrape.Controllers
         //    if (ModelState.IsValid)
         //    {
         //        try
-        //        {
-        //            _context.Update(ad);
+        //        {_adRepository.Update(ad);
         //            await _context.SaveChangesAsync();
         //        }
         //        catch (DbUpdateConcurrencyException)

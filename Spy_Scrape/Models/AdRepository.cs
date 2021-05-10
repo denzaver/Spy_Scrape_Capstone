@@ -54,5 +54,12 @@ namespace Spy_Scrape.Models
         {
             return _context.Ads.FirstOrDefault(a => a.AdId == AdId);
         }
+
+        //public Ad EditAd(int AdId)
+        //{
+        //    _context.Update(AdId);
+        //    _context.SaveChanges();
+        //    return _context.Ads.FirstOrDefault(a => a.AdId == AdId);
+        //}
     }
 }
