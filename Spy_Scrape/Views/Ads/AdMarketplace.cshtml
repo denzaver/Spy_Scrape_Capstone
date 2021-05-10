@@ -5,10 +5,11 @@
     @foreach (var ad in Model.Ads)
             {
                <div class="col-sm-4 col-lg-4 col md-4">
-                   <div>
-                       <img src="@ad.ImageURL" alt="@ad.AdTargetMarket" />
+                   
+                   <div class="img-thumbnail">
+                       <img src="@ad.ImageURL" class="img-responsive" height="350" alt="social media ad example." />
                        <div class="caption">
-                           <h2>@ad.AdTrafficSource</h2>
+                           <h3>@ad.AdTrafficSource</h3>
                            <h3>@ad.AdType</h3>
                            <h3>@ad.AdOS</h3>
                            <h3>@ad.AdTargetCountry</h3>
@@ -17,7 +18,6 @@
                            <h3 class="pull-right">@ad.AdRunTime</h3>
                        </div>
                    </div>
-                   
                </div>
             }
 
