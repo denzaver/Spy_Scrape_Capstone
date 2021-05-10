@@ -20,7 +20,6 @@ namespace Spy_Scrape.Controllers
 
         public AdsController(IAdRepository adRepository, IAdCategoryRepository adCategoryRepository)
         {
-            //_context = context;
             _adRepository = adRepository;
             _adCategoryRepository = adCategoryRepository;
         }
@@ -28,9 +27,6 @@ namespace Spy_Scrape.Controllers
         // GET: Ads
         public IActionResult Index()
         {
-            
-            //var adsView = _context.Ads.ToList();
-            
             return View(_adRepository.GetAllAds);
         }
         [Authorize]
@@ -86,7 +82,6 @@ namespace Spy_Scrape.Controllers
         {
             if (ModelState.IsValid)
             {
-                //ViewBag.Categories = _context.Ads.Select(x => x.AdCategory).Distinct();
                 var addAd = new Ad();
                 addAd.AdId = ad.AdId;
                 addAd.AdType = ad.AdType;
@@ -103,14 +98,12 @@ namespace Spy_Scrape.Controllers
                 _adRepository.CreateAd(addAd);
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryType");
             return RedirectToAction(nameof(Index));
         }
 
         // GET: Ads/Edit/5
         public IActionResult Edit(int id)
         {
-            //var ad = _adRepository.GetAdById(id);
             var categoryList = _adCategoryRepository.GetAdCategories().ToList();
             ViewBag.AdCategory = new SelectList(categoryList, "CategoryId", "CategoryType");
 
@@ -123,21 +116,6 @@ namespace Spy_Scrape.Controllers
             {
                 return NotFound();
             }
-
-            //var addAd = new Ad();
-            //addAd.AdId = ad.AdId;
-            //addAd.AdType = ad.AdType;
-            //addAd.AdTrafficSource = ad.AdTrafficSource;
-            //addAd.AdOS = ad.AdOS;
-            //addAd.AdTargetMarket = ad.AdTargetMarket;
-            //addAd.AdTargetCountry = ad.AdTargetCountry;
-            //addAd.ImageURL = ad.ImageURL;
-            //addAd.AdVies = ad.AdVies;
-            //addAd.AdRunTime = ad.AdRunTime;
-            //addAd.CategoryId = ad.CategoryId;
-            //addAd.AdCategory = ad.AdCategory;
-
-            //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
             return View(ad);
         }
 
@@ -148,14 +126,11 @@ namespace Spy_Scrape.Controllers
         [ValidateAntiForgeryToken]
         public  IActionResult Edit([Bind("AdId,AdType,AdTrafficSource,AdOS,AdTargetMarket,AdTargetCountry,ImageURL,AdVies,AdRunTime,CategoryId,AdCategory")] Ad ad)
         {
-          
             if (ModelState.IsValid)
             {
                 try
                 {
                     _adRepository.EditAd(ad);
-                    
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -170,44 +145,41 @@ namespace Spy_Scrape.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
             return View(ad);
         }
 
-        //// GET: Ads/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Ads/Delete/5
+        public IActionResult Delete(int id)
+        {
+            var categoryList = _adCategoryRepository.GetAdCategories().ToList();
+            ViewBag.AdCategory = new SelectList(categoryList, "CategoryId", "CategoryType");
 
-        //    var ad = await _context.Ads
-        //        .Include(a => a.AdCategory)
-        //        .FirstOrDefaultAsync(m => m.AdId == id);
-        //    if (ad == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(ad);
-        //}
+            var ad =  _adRepository.GetAllAds.FirstOrDefault(a => a.AdId == id)
+                .Include(a => a.AdCategory)
+                .FirstOrDefaultAsync(m => m.AdId == id);
+            if (ad == null)
+            {
+                return NotFound();
+            }
 
-        //// POST: Ads/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var ad = await _context.Ads.FindAsync(id);
-        //    _context.Ads.Remove(ad);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            return View(ad);
+        }
 
-        //private bool AdExists(int id)
-        //{
-        //    return _context.Ads.Any(e => e.AdId == id);
-        //}
+        // POST: Ads/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var ad =  _adRepository.Ads.FindAsync(id);
+            _context.Ads.Remove(ad);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         public bool AdExists(int AdId)
         {

@@ -50,9 +50,9 @@ namespace Spy_Scrape.Models
             }
         }
 
-        public Ad GetAdById(int AdId)
+        public Ad GetAdById(int Id)
         {
-            return _context.Ads.FirstOrDefault(a => a.AdId == AdId);
+            return _context.Ads.FirstOrDefault(a => a.AdId == Id);
         }
 
         public void EditAd(Ad ad)
@@ -62,9 +62,19 @@ namespace Spy_Scrape.Models
 
         }
 
-        //public bool AdExists(int AdId)
-        //{
-        //    return _context.Ads.Any(a => a.AdId == AdId);
-        //}
+        public void DeleteAd(int Id)
+        {
+            var adToDelete = _context.Ads.Find(Id);
+            _context.Ads.Remove(adToDelete);
+            _context.SaveChanges();
+
+            //var adToDelete = _context.Ads.FirstOrDefault(d => d.AdId == Id);
+            //if( adToDelete != null)
+            //{
+            //    _context.Remove(adToDelete);
+            //    _context.SaveChanges();
+
+            //}
+        }
     }
 }
