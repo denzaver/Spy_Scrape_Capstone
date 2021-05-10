@@ -110,30 +110,32 @@ namespace Spy_Scrape.Controllers
         // GET: Ads/Edit/5
         public IActionResult Edit(int id)
         {
-            var ad = _adRepository.GetAdById(id);
+            //var ad = _adRepository.GetAdById(id);
+            var categoryList = _adCategoryRepository.GetAdCategories().ToList();
+            ViewBag.AdCategory = new SelectList(categoryList, "CategoryId", "CategoryType");
 
             if (id == null)
             {
                 return NotFound();
             }
-            
+            var ad = _adRepository.GetAllAds.FirstOrDefault(a => a.AdId == id);
             if (ad == null)
             {
                 return NotFound();
             }
 
-            var addAd = new Ad();
-            addAd.AdId = ad.AdId;
-            addAd.AdType = ad.AdType;
-            addAd.AdTrafficSource = ad.AdTrafficSource;
-            addAd.AdOS = ad.AdOS;
-            addAd.AdTargetMarket = ad.AdTargetMarket;
-            addAd.AdTargetCountry = ad.AdTargetCountry;
-            addAd.ImageURL = ad.ImageURL;
-            addAd.AdVies = ad.AdVies;
-            addAd.AdRunTime = ad.AdRunTime;
-            addAd.CategoryId = ad.CategoryId;
-            addAd.AdCategory = ad.AdCategory;
+            //var addAd = new Ad();
+            //addAd.AdId = ad.AdId;
+            //addAd.AdType = ad.AdType;
+            //addAd.AdTrafficSource = ad.AdTrafficSource;
+            //addAd.AdOS = ad.AdOS;
+            //addAd.AdTargetMarket = ad.AdTargetMarket;
+            //addAd.AdTargetCountry = ad.AdTargetCountry;
+            //addAd.ImageURL = ad.ImageURL;
+            //addAd.AdVies = ad.AdVies;
+            //addAd.AdRunTime = ad.AdRunTime;
+            //addAd.CategoryId = ad.CategoryId;
+            //addAd.AdCategory = ad.AdCategory;
 
             //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
             return View(ad);
@@ -144,19 +146,16 @@ namespace Spy_Scrape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AdId,AdOs,AdTargetMarket,AdMarketCountry,ImageURL,CategoryId,TrafficSourceId")] Ad ad)
+        public  IActionResult Edit([Bind("AdId,AdType,AdTrafficSource,AdOS,AdTargetMarket,AdTargetCountry,ImageURL,AdVies,AdRunTime,CategoryId,AdCategory")] Ad ad)
         {
-            if (id != ad.AdId)
-            {
-                return NotFound();
-            }
-
+          
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _adRepository.Update(ad);
-                    await _context.SaveChangesAsync();
+                    _adRepository.EditAd(ad);
+                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -171,7 +170,7 @@ namespace Spy_Scrape.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
+            //ViewData["CategoryId"] = new SelectList(_context.AdCategories, "CategoryId", "CategoryId", ad.CategoryId);
             return View(ad);
         }
 
@@ -209,5 +208,10 @@ namespace Spy_Scrape.Controllers
         //{
         //    return _context.Ads.Any(e => e.AdId == id);
         //}
+
+        public bool AdExists(int AdId)
+        {
+            return _adRepository.GetAllAds.Any(a => a.AdId == AdId);
+        }
     }
 }

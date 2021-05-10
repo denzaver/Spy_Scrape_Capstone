@@ -55,11 +55,16 @@ namespace Spy_Scrape.Models
             return _context.Ads.FirstOrDefault(a => a.AdId == AdId);
         }
 
-        //public Ad EditAd(int AdId)
+        public void EditAd(Ad ad)
+        {
+            _context.Entry(ad).State=EntityState.Modified;
+            _context.SaveChanges();
+
+        }
+
+        //public bool AdExists(int AdId)
         //{
-        //    _context.Update(AdId);
-        //    _context.SaveChanges();
-        //    return _context.Ads.FirstOrDefault(a => a.AdId == AdId);
+        //    return _context.Ads.Any(a => a.AdId == AdId);
         //}
     }
 }
