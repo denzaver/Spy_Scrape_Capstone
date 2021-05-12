@@ -55,7 +55,7 @@ namespace Spy_Scrape.Controllers
             );
         }
         // GET: Ads/Details/5
-        public IActionResult Details(int id)
+        public IActionResult AdDetails(int id)
         {
             var ad = _adRepository.GetAdById(id);
 

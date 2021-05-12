@@ -2,16 +2,19 @@
 
 <h1>@Model.AdType</h1>
 
-<div class="thumbnail-selection">
-    <img src="@Model.ImageURL" alt="@Model.ImageURL" />
-    <div class="caption-full">
-        <h3 class="pull-right"> </h3>
-        <h6 class="pull-right"> Niche: @ad.AdTargetMarket</h6>
-        <h6 class="pull-right"> Views: @ad.AdVies</h6>
-        <h6 class="pull-right"> Days Running: @ad.AdRunTime</h6>
-        <h6> Traffic Source: @ad.AdTrafficSource</h6>
-        <h6> Type: @ad.AdType</h6>
-        <h6> Opperating System: @ad.AdOS</h6>
-        <h6> Country: @ad.AdTargetCountry</h6>
+<div class="center">
+    <div class="thumbnail-selection">
+        <img src="@Model.ImageURL" alt="@Model.ImageURL" height="600" />
+        <br />
+        <br />
+        <div class="caption-full">
+            <h6> Traffic Source: @Model.AdTrafficSource</h6>
+            <h6> Type: @Model.AdType</h6>
+            <h6> Opperating System: @Model.AdOS</h6>
+            <h6> Country: @Model.AdTargetCountry</h6>
+            <h6> Niche: @Model.AdTargetMarket</h6>
+            <h6> Views: @Model.AdVies</h6>
+            <h6> Days Running: @Model.AdRunTime</h6>
+        </div>
     </div>
 </div>

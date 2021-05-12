@@ -6,25 +6,19 @@
     <div class="row col-12">
         @foreach (var ad in Model.Ads)
         {
-
             <div class="col-4">
                 <div class="thumbnail-selection">
                     <img src="@ad.ImageURL" class="img-responsive" position="relative" height="300" width="250" alt="social media ad example." />
                     <div class="caption-data">
-                        <h6 class="pull-right"> Niche: @ad.AdTargetMarket</h6>
-                        <h6 class="pull-right"> Views: @ad.AdVies</h6>
+                        <h6><a asp-controller="Ads" asp-action="AdDetails" asp-route-id="@ad.AdId">Ad Details</a></h6>
                         <h6> Traffic Source: @ad.AdTrafficSource</h6>
-                        <h6> Type: @ad.AdType</h6>
-                        <h6><a asp-controller="Ads" asp-action="Details" asp-route-id="@ad.AdId"</h6>
-
+                        <h6> Ad Type: @ad.AdType</h6>
+                        <h6> Views: @ad.AdVies</h6>
                         
-
                     </div>
                 </div>
+                <br />
             </div>
-
-
         }
-
     </div>
 </div>
