@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Spy_Scrape.Data;
 using Spy_Scrape.Models;
+using Spy_Scrape.ViewModels;
 
 namespace Spy_Scrape.Controllers
 {
@@ -167,27 +168,36 @@ namespace Spy_Scrape.Controllers
             return _context.Customers.Any(e => e.CustomerId == id);
         }
 
-        //public IActionResult AddToFavorites(int id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var ad = _context.Ads.Find(id);
-        //    if (ad == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(ad);
-        //}
-
-        [HttpPost, ActionName("FavoriteAds")]
-        [ValidateAntiForgeryToken]
-        public IActionResult FavoriteAds(Ad ad)
+        public IActionResult FavoriteAds()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
-            var favAd = _context.Ads.Where(a => a.AdId == ad.AdId).FirstOrDefault();
+            var vm = new FavoriteAdsViewModel();
+            vm.Ads = _context.Favorites.Where(a => a.Customer.CustomerId == customer.CustomerId).Select(a => a.Ad);
+
+            return View(vm);
+        }
+
+        public IActionResult FavoriteAdsAdd(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+            var favAd = _context.Favorites.SingleOrDefault(f => f.Ad.AdId == id && f.Customer.CustomerId == customer.CustomerId);
+            
+            if (favAd == null)
+            {
+                var ad = _context.Ads.SingleOrDefault(a => a.AdId == id);
+                favAd = new Favorite
+                {
+                    Ad = ad,
+                    Customer = customer,
+                };
+
+                _context.Add(favAd);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+
 
             //var cart = _context.ShoppingCarts.Where(x => x.CustomerId == customer.Id).FirstOrDefault();
             //Beer beer = _context.Beers.Where(x => x.BeerId == id).FirstOrDefault();
@@ -196,14 +206,20 @@ namespace Spy_Scrape.Controllers
             //cart.Customer = customer;
             //cart.TempCartId = cart.TempCartId;
             //cart.Beers.Add(beer);
-            //beer.Stock -= 1;
-            _context.Add(ad);
-            _context.SaveChanges();
+            ////beer.Stock -= 1;
+            //_context.Add(favAd);
+            //_context.Update(ad);
+            //_context.SaveChanges();
 
             //_context.
             //_context.SaveChanges();
 
-            return View();
+            
+        }
+
+        public bool AdExists(int AdId)
+        {
+            return _context.Favorites.Any(a => a.Ad.AdId == AdId);
         }
     }
 }
