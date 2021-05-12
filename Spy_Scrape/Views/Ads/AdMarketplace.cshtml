@@ -13,11 +13,12 @@
                     <div class="caption-data">
                         <h6 class="pull-right"> Niche: @ad.AdTargetMarket</h6>
                         <h6 class="pull-right"> Views: @ad.AdVies</h6>
-                        <h6 class="pull-right"> Days Running: @ad.AdRunTime</h6>
                         <h6> Traffic Source: @ad.AdTrafficSource</h6>
                         <h6> Type: @ad.AdType</h6>
-                        <h6> Opperating System: @ad.AdOS</h6>
-                        <h6> Country: @ad.AdTargetCountry</h6>
+                        <h6><a asp-controller="Ads" asp-action="Details" asp-route-id="@ad.AdId"</h6>
+
+                        
+
                     </div>
                 </div>
             </div>
