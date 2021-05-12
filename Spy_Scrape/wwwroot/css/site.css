@@ -24,23 +24,6 @@ a {
   border-color: #1861ac;
 }
 
-.thumbnail-selection {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-}
-
-    .thumbnail-selection img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        height: 100%;
-        width: auto;
-        -webkit-transform: translate(-50%,-50%);
-        -ms-transform: translate(-50%,-50%);
-        transform: translate(-50%,-50%);
-    }
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -53,9 +36,12 @@ html {
   }
 }
 
+
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }

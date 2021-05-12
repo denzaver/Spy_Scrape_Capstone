@@ -3,56 +3,27 @@
 
 <div class="container-fluid">
     <h1>@Model.CurrentCategory</h1>
-    @foreach (var ad in Model.Ads)
-    {
-        <div class="row">
-            <div class="col-sm">
+    <div class="row col-12">
+        @foreach (var ad in Model.Ads)
+        {
+
+            <div class="col-4">
                 <div class="thumbnail-selection">
                     <img src="@ad.ImageURL" class="img-responsive" position="relative" height="300" width="250" alt="social media ad example." />
-                    <div class="caption">
-                        <h7 class="pull-right"> Niche: @ad.AdTargetMarket</h7>
-                        <h7 class="pull-right"> Views: @ad.AdVies</h7>
-                        <h7 class="pull-right"> Days Running: @ad.AdRunTime</h7>
-                        <h7> Traffic Source: @ad.AdTrafficSource</h7>
-                        <h7> Type: @ad.AdType</h7>
-                        <h7> Opperating System: @ad.AdOS</h7>
-                        <h7> Country: @ad.AdTargetCountry</h7>
+                    <div class="caption-data">
+                        <h6 class="pull-right"> Niche: @ad.AdTargetMarket</h6>
+                        <h6 class="pull-right"> Views: @ad.AdVies</h6>
+                        <h6 class="pull-right"> Days Running: @ad.AdRunTime</h6>
+                        <h6> Traffic Source: @ad.AdTrafficSource</h6>
+                        <h6> Type: @ad.AdType</h6>
+                        <h6> Opperating System: @ad.AdOS</h6>
+                        <h6> Country: @ad.AdTargetCountry</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="thumbnail-selection">
-                    <img src="@ad.ImageURL" class="img-responsive" position="relative" height="300" width="250" alt="social media ad example." />
 
-                    <div class="caption">
-                        <h7 class="pull-right"> Niche: @ad.AdTargetMarket</h7>
-                        <h7 class="pull-right"> Views: @ad.AdVies</h7>
-                        <h7 class="pull-right"> Days Running: @ad.AdRunTime</h7>
-                        <h7> Traffic Source: @ad.AdTrafficSource</h7>
-                        <h7> Type: @ad.AdType</h7>
-                        <h7> Opperating System: @ad.AdOS</h7>
-                        <h7> Country: @ad.AdTargetCountry</h7>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="thumbnail-selection">
-                    <img src="@ad.ImageURL" class="img-responsive" position="relative" height="300" width="250" alt="social media ad example." />
 
-                    <div class="caption">
-                        <h7 class="pull-right"> Niche: @ad.AdTargetMarket</h7>
-                        <h7 class="pull-right"> Views: @ad.AdVies</h7>
-                        <h7 class="pull-right"> Days Running: @ad.AdRunTime</h7>
-                        <h7> Traffic Source: @ad.AdTrafficSource</h7>
-                        <h7> Type: @ad.AdType</h7>
-                        <h7> Opperating System: @ad.AdOS</h7>
-                        <h7> Country: @ad.AdTargetCountry</h7>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+        }
 
-    }
-
+    </div>
 </div>
