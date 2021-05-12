@@ -16,5 +16,10 @@
             <h6> Views: @Model.AdVies</h6>
             <h6> Days Running: @Model.AdRunTime</h6>
         </div>
+        <div class="AddtoFavorites">
+            <p class="button">
+                <a class="btn btn-primary" asp-controller="Customer" asp-action="FavoriteAds">Favorite it!</a>
+            </p>
+        </div>
     </div>
 </div>

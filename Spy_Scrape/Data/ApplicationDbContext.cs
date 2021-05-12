@@ -19,7 +19,7 @@ namespace Spy_Scrape.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Ad> Ads { get; set; }
         public DbSet<AdCategory> AdCategories { get; set; }
-
+        public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

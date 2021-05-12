@@ -1,0 +1,28 @@
+﻿@model Spy_Scrape.ViewModels.FavoriteAdsViewModel
+
+
+<div class="container-fluid">
+    <h1>My Favorite Ads</h1>
+    <div class="row col-12">
+        @foreach (var ad in Model.Ads)
+        {
+            <div class="col-4">
+                <div class="thumbnail-selection">
+                    <img src="@ad.ImageURL." class="img-responsive" position="relative" height="300" width="250" alt="social media ad example." />
+                    <br />
+                    <br />
+                    <div class="caption-full">
+                        <h6> Traffic Source: @ad.AdTrafficSource</h6>
+                        <h6> Type: @ad.AdType</h6>
+                        <h6> Opperating System: @ad.AdOS</h6>
+                        <h6> Country: @ad.AdTargetCountry</h6>
+                        <h6> Niche: @ad.AdTargetMarket</h6>
+                        <h6> Views: @ad.AdVies</h6>
+                        <h6> Days Running: @ad.AdRunTime</h6>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+</div>

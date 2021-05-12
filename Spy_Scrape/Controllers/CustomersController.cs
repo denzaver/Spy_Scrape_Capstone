@@ -167,39 +167,13 @@ namespace Spy_Scrape.Controllers
             return _context.Customers.Any(e => e.CustomerId == id);
         }
 
-        //public IActionResult AdMarketplace(string category)
-        //{
-        //    IEnumerable<Ad> ads;
-        //    string currentCategory;
-
-        //    if (string.IsNullOrEmpty(category))
-        //    {
-        //        ads = _adRepository.GetAllAds.OrderBy(a => a.AdId);
-        //        currentCategory = "All Ads";
-        //    }
-        //    else
-        //    {
-        //        ads = _adRepository.GetAllAds.Where(c => c.AdCategory.CategoryType == category);
-
-        //        currentCategory = _adCategoryRepository.GetAdCategories().FirstOrDefault(c => c.CategoryType == category)?.CategoryType;
-        //    }
-
-        //    return View(new AdMarketplaceViewModel
-        //    {
-        //        Ads = ads,
-        //        CurrentCategory = currentCategory
-        //    }
-        //    );
-        //}
-
-        //public async Task<IActionResult> Favorit(int? id)
+        //public IActionResult AddToFavorites(int id)
         //{
         //    if (id == null)
         //    {
         //        return NotFound();
         //    }
-
-        //    var ad = await _context.Ads.FindAsync(id);
+        //    var ad = _context.Ads.Find(id);
         //    if (ad == null)
         //    {
         //        return NotFound();
@@ -207,42 +181,29 @@ namespace Spy_Scrape.Controllers
         //    return View(ad);
         //}
 
-        //[HttpPost, ActionName("AddToCart")]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult AddToCart(int beerId)
-        //{
-        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var customer = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
-        //    var cart = new ShoppingCart();
-        //    cart.Id = customer.Id;
-        //    cart.Customer = customer;
-        //    var beer = _context.Beers.Where(br => br.BeerId == beerId).FirstOrDefault();
-        //    cart.Beer = beer;
-        //    cart.BeerId = beer.BeerId;
-        //    cart.Quantity = 1;
-        //    beer.Stock -= 1;
-        //    Sale sale = new Sale();
-        //    sale.Beer = beer;
-        //    sale.BeerId = beerId;
-        //    sale.quantity = 1;
-        //    sale.Zip = customer.Zipcode;
+        [HttpPost, ActionName("FavoriteAds")]
+        [ValidateAntiForgeryToken]
+        public IActionResult FavoriteAds(Ad ad)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+            var favAd = _context.Ads.Where(a => a.AdId == ad.AdId).FirstOrDefault();
 
-        //    //var cart = _context.ShoppingCarts.Where(x => x.CustomerId == customer.Id).FirstOrDefault();
-        //    //Beer beer = _context.Beers.Where(x => x.BeerId == id).FirstOrDefault();
-        //    //cart.CustomerId = customer.Id;
-        //    //cart.Quantity += beer.Price;
-        //    //cart.Customer = customer;
-        //    //cart.TempCartId = cart.TempCartId;
-        //    //cart.Beers.Add(beer);
-        //    //beer.Stock -= 1;
-        //    _context.Add(cart);
-        //    _context.Update(beer);
-        //    _context.SaveChangesAsync();
+            //var cart = _context.ShoppingCarts.Where(x => x.CustomerId == customer.Id).FirstOrDefault();
+            //Beer beer = _context.Beers.Where(x => x.BeerId == id).FirstOrDefault();
+            //cart.CustomerId = customer.Id;
+            //cart.Quantity += beer.Price;
+            //cart.Customer = customer;
+            //cart.TempCartId = cart.TempCartId;
+            //cart.Beers.Add(beer);
+            //beer.Stock -= 1;
+            _context.Add(ad);
+            _context.SaveChanges();
 
-        //    //_context.
-        //    //_context.SaveChanges();
+            //_context.
+            //_context.SaveChanges();
 
-        //    return View();
-        //}
+            return View();
+        }
     }
 }
