@@ -1,0 +1,17 @@
+﻿@model IEnumerable<AdCategory>
+
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown">Ad Traffice Sources<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        @foreach(var category in Model)
+            {
+                <li>
+                    <a asp-controller="Ads" asp-action="AdMarketPlace" asp-route-category="@category.CategoryType">@category.CategoryType</a>
+                </li>
+            }
+        <li class="dropdown-divider"></li>
+        <li>
+            <a asp-controller="Ads" asp-action="AdMarketPlace" asp-route-category="">View All Ads</a>
+        </li>
+    </ul>
+</li>
