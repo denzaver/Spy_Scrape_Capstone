@@ -15,5 +15,11 @@ namespace Spy_Scrape.Components
         {
             _adCategoryRepository = adCategoryRepository;
         }
+
+        public IViewComponentResult Invoke()
+        {
+            var categories = _adCategoryRepository.GetAdCategories().OrderBy(c => c.CategoryType);
+            return View(categories);
+        }
     }
 }
