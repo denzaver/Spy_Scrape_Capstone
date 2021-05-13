@@ -197,24 +197,6 @@ namespace Spy_Scrape.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
-
-
-            //var cart = _context.ShoppingCarts.Where(x => x.CustomerId == customer.Id).FirstOrDefault();
-            //Beer beer = _context.Beers.Where(x => x.BeerId == id).FirstOrDefault();
-            //cart.CustomerId = customer.Id;
-            //cart.Quantity += beer.Price;
-            //cart.Customer = customer;
-            //cart.TempCartId = cart.TempCartId;
-            //cart.Beers.Add(beer);
-            ////beer.Stock -= 1;
-            //_context.Add(favAd);
-            //_context.Update(ad);
-            //_context.SaveChanges();
-
-            //_context.
-            //_context.SaveChanges();
-
-            
         }
 
         public bool AdExists(int AdId)

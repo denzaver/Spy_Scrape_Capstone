@@ -14,7 +14,7 @@ namespace Spy_Scrape.Models
         public string AdType { get; set; } //vide, photo, slide, carousel
         public string AdTrafficSource { get; set; } //Facebook, Instagram, TikTok
         public string AdOS { get; set; } //What its being show on
-        public string AdTargetMarket { get; set; } //Industry
+        public string AdTargetMarket { get; set; } //Niche
         public string AdTargetCountry { get; set; } //where the add is being ran
         public string ImageURL { get; set; } //the actual ad image
         public string AdVies { get; set; } //how many times the add has been seen

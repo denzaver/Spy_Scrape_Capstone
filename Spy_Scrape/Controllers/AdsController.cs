@@ -34,6 +34,8 @@ namespace Spy_Scrape.Controllers
         {
             IEnumerable<Ad> ads;
             string currentCategory;
+            var niches = _adRepository.GetAllAds.Select(n => new { key = n.AdTargetMarket }).Distinct().ToList();
+            ViewBag.Niches = new SelectList(niches, "key", "key");
 
             if (string.IsNullOrEmpty(category))
             {
@@ -53,6 +55,38 @@ namespace Spy_Scrape.Controllers
                 CurrentCategory = currentCategory
             }
             );
+        }
+
+        public IActionResult FilterMarketNiche()
+        {
+            var niches = _adRepository.GetAllAds.Select(n => n.AdTargetMarket).Distinct().ToList();
+            niches.Add("none");
+            ViewBag.AdTargetMarket = new SelectList(niches);
+            return View(niches);
+        }
+
+        [HttpPost, ActionName("FilterMarketNiche")]
+        [ValidateAntiForgeryToken]
+        public IActionResult FilterMarketNiche(string niche)
+        {
+            
+            var niches = _adRepository.GetAllAds.Select(n => new { key = n.AdTargetMarket }).Distinct().ToList();
+
+            ViewBag.Niches = new SelectList(niches, "key", "key");
+
+            if ( niche == "Eduction")
+            {
+                var education = _adRepository.GetAllAds.Select(n => n.AdTargetMarket == "Education").ToList();
+                return View(education);
+            }
+            if (niche == "Fitness")
+            {
+                var fitness = _adRepository.GetAllAds.Select(n => n.AdTargetMarket == "Fitness").ToList();
+                return View(fitness);
+            }
+
+            return View();
+
         }
         // GET: Ads/Details/5
         public IActionResult AdDetails(int id)

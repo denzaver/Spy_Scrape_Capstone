@@ -1,5 +1,23 @@
 ﻿@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
 
+@*<form asp-action="FilterMarketNiche" method="get">
+    <div>
+        <p>
+            Find A Device: <input type="text" name="niche" value="" />
+            <input type="submit" value="Search" />
+            <a asp-action="AdMarketplace">Remove Filter</a>
+        </p>
+    </div>
+</form>*@
+
+<p>
+    @using (Html.BeginForm())
+    {
+        <select name="niche" asp-items="@ViewBag.Niches"></select>
+        <input type="submit" value="Search" />
+        <a asp-action="AdMarketplace">Remove Filter</a>
+    }
+</p>
 
 <div class="container-fluid">
     <h1>@Model.CurrentCategory</h1>
@@ -14,7 +32,7 @@
                         <h6> Traffic Source: @ad.AdTrafficSource</h6>
                         <h6> Ad Type: @ad.AdType</h6>
                         <h6> Views: @ad.AdVies</h6>
-                        
+
                     </div>
                 </div>
                 <br />
