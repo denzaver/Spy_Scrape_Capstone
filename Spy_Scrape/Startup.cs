@@ -51,12 +51,15 @@ namespace Spy_Scrape
             services.AddControllersWithViews();
             services.AddScoped<IAdCategoryRepository, AdCategoryRepository>();
             services.AddScoped<IAdRepository, AdRepository>();
+
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -1,4 +1,20 @@
-﻿@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<Spy_Scrape.Data.StripeSettings> Stripe
+@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
+
+<div class="text-center">
+    <form asp-action="Charge" asp-controller="Customers" method="POST">
+        <article>
+            <label>Amount: $20.00</label>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-local="auto"
+                data-description="Sample Charge">
+        </script>
+    </form>
+</div>
 
 
 <div class="row">
@@ -21,6 +37,11 @@
             </div>
         </form>
     </div>
+</div>
+<div class="GoToFavorites">
+    <p class="button">
+        <a class="btn btn-primary" asp-controller="Customers" asp-action="FavoriteAds">My Favorites</a>
+    </p>
 </div>
 
 <div class="container-fluid">

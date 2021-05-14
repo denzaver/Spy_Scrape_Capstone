@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Spy_Scrape.Data;
 using Spy_Scrape.Models;
 using Spy_Scrape.ViewModels;
+using Stripe;
 
 namespace Spy_Scrape.Controllers
 {
@@ -18,7 +19,9 @@ namespace Spy_Scrape.Controllers
 
         public CustomersController(ApplicationDbContext context)
         {
+
             _context = context;
+            StripeConfiguration.ApiKey = "sk_test_ny2MVIMOlATJZvdyyoVZie6Q";
         }
 
         // GET: Customers
@@ -65,7 +68,7 @@ namespace Spy_Scrape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,CompanyName,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Create( Models.Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +82,27 @@ namespace Spy_Scrape.Controllers
             return RedirectToAction("AdMarketplace", "Ads");
         }
 
+        public IActionResult Charge(string stripeEmail, string stripeToken)
+        {
+            var options = new ChargeCreateOptions
+            {
+                Amount = 2000,
+                Currency = "usd",
+                Source = stripeToken,
+                Description = "My First Test Charge (created for API docs)",
+            };
+            var service = new ChargeService();
+            var charged = service.Create(options);
+
+
+            if (charged.Status == "succeeded")
+            {
+                string BalanceTransactionId = charged.BalanceTransactionId;
+                return View();
+            }
+
+            return RedirectToAction("AdMarketplace", "Ads");
+        }
 
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -97,12 +121,13 @@ namespace Spy_Scrape.Controllers
             return View(customer);
         }
 
+
         // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,CompanyName,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Models.Customer customer)
         {
             if (id != customer.CustomerId)
             {
