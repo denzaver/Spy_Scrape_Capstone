@@ -14,9 +14,9 @@ namespace Spy_Scrape.Controllers
 {
     public class AdsController : Controller
     {
-        
-        private  IAdRepository _adRepository;
-        private  IAdCategoryRepository _adCategoryRepository;
+
+        private IAdRepository _adRepository;
+        private IAdCategoryRepository _adCategoryRepository;
 
         public AdsController(IAdRepository adRepository, IAdCategoryRepository adCategoryRepository)
         {
@@ -30,17 +30,20 @@ namespace Spy_Scrape.Controllers
             return View(_adRepository.GetAllAds);
         }
         [Authorize]
-        public IActionResult AdMarketplace(string category)
+        public IActionResult AdMarketplace(string category, string niche, string device)
         {
             IEnumerable<Ad> ads;
             string currentCategory;
-            var niches = _adRepository.GetAllAds.Select(n => new { key = n.AdTargetMarket }).Distinct().ToList();
-            ViewBag.Niches = new SelectList(niches, "key", "key");
+            string currentniche;
+            string currentdevice;
 
-            if (string.IsNullOrEmpty(category))
+
+
+            if (string.IsNullOrEmpty(category) || category == "All Ads")
             {
                 ads = _adRepository.GetAllAds.OrderBy(a => a.AdId);
                 currentCategory = "All Ads";
+
             }
             else
             {
@@ -49,12 +52,74 @@ namespace Spy_Scrape.Controllers
                 currentCategory = _adCategoryRepository.GetAdCategories().FirstOrDefault(c => c.CategoryType == category)?.CategoryType;
             }
 
+            var niches = _adRepository.GetAllAds.Select(n => new { key = n.AdTargetMarket, Selected = false }).Distinct().ToList();
+           // List of objects
+
+            if (string.IsNullOrEmpty(niche) || niche == "All")
+            {
+                currentniche = "All";
+                niches.Insert(0, new { key = "All", Selected = true });
+;            }
+            else
+            {
+                ads = ads.Where(n => n.AdTargetMarket == niche);
+                niches.Insert(0, new { key = "All", Selected = false });
+                for (int i = 0; i < niches.Count; i++)
+                {
+                    if (niches[i].key == niche)
+                    {
+                        niches.RemoveAt(i);
+                        niches.Insert(0, new {key = niche, Selected = true});
+                        break;
+                    }
+                }
+                currentniche = niche;
+            }
+
+            var devices = _adRepository.GetAllAds.Select(n => new { key = n.AdOS, Selected = false }).Distinct().ToList();
+            // List of objects
+
+            if (string.IsNullOrEmpty(device) || device == "All")
+            {
+                currentdevice = "All";
+                devices.Insert(0, new { key = "All", Selected = true });
+                ;
+            }
+            else
+            {
+                ads = ads.Where(n => n.AdOS == device);
+                devices.Insert(0, new { key = "All", Selected = false });
+                for (int i = 0; i < devices.Count; i++)
+                {
+                    if (devices[i].key == device)
+                    {
+                        devices.RemoveAt(i);
+                        devices.Insert(0, new { key = device, Selected = true });
+                        break;
+                    }
+                }
+                currentdevice = device;
+            }
+
+
+
+            // Create Select List
+            ViewBag.Niches = new SelectList(niches, "key", "key");
+            ViewBag.Devices = new SelectList(devices, "key", "key");
+
             return View(new AdMarketplaceViewModel
             {
                 Ads = ads,
-                CurrentCategory = currentCategory
+                CurrentCategory = currentCategory,
+                CurrentNiche = currentniche,
+                CurrentDevice = currentdevice
             }
             );
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AdMarketplace(AdMarketplaceViewModel model) {
+            return RedirectToAction(nameof(AdMarketplace), new {category = model.CurrentCategory, niche = model.CurrentNiche, device = model.CurrentDevice});
         }
 
         public IActionResult FilterMarketNiche()

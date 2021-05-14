@@ -1,23 +1,27 @@
 ﻿@model Spy_Scrape.ViewModels.AdMarketplaceViewModel
 
-@*<form asp-action="FilterMarketNiche" method="get">
-    <div>
-        <p>
-            Find A Device: <input type="text" name="niche" value="" />
-            <input type="submit" value="Search" />
-            <a asp-action="AdMarketplace">Remove Filter</a>
-        </p>
-    </div>
-</form>*@
 
-<p>
-    @using (Html.BeginForm())
-    {
-        <select name="niche" asp-items="@ViewBag.Niches"></select>
-        <input type="submit" value="Search" />
-        <a asp-action="AdMarketplace">Remove Filter</a>
-    }
-</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AdMarketplace">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CurrentCategory" />
+            <div class="form-group">
+                <label asp-for="CurrentNiche" class="control-label"></label>
+                <select asp-for="CurrentNiche" class="form-control" asp-items="@ViewBag.Niches"></select>
+                <span asp-validation-for="CurrentNiche" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentDevice" class="control-label"></label>
+                <select asp-for="CurrentDevice" class="form-control" asp-items="@ViewBag.Devices"></select>
+                <span asp-validation-for="CurrentDevice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="container-fluid">
     <h1>@Model.CurrentCategory</h1>
